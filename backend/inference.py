@@ -3,9 +3,9 @@ import torch
 from torchvision import transforms
 from PIL import Image
 
-from .resnet12_ml_model import resnet12
+import resnet12_ml_model
 
-from .config_ml import TRAINED_MODEL_FILE_PATH
+import config_ml
 
 IMAGE_SIZE = 224
 
@@ -25,8 +25,8 @@ print("INFERENCE DEVICE :", device)
 
 # Loading Model
 num_classes = 7
-model = resnet12(num_classes).to(device)
-state_dict = torch.load(TRAINED_MODEL_FILE_PATH, map_location=torch.device('cpu'))      
+model = resnet12_ml_model.resnet12(num_classes).to(device)
+state_dict = torch.load(config_ml.TRAINED_MODEL_FILE_PATH, map_location=torch.device('cpu'))      
 model.load_state_dict(state_dict)           # Load state dictonary
 model.to(device)
 model.eval()

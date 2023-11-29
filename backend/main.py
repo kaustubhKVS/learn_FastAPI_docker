@@ -5,7 +5,7 @@ from typing import Union
 from fastapi import FastAPI, Path, HTTPException, UploadFile
 from fastapi import File
 
-from .inference import get_fsm_prediction
+import inference
 
 app = FastAPI()
 
@@ -25,7 +25,7 @@ async def post_image_pred_by_file(image_file: UploadFile = File(...)):
     
     image_file_content = await image_file.read()
     
-    predicted_label = await get_fsm_prediction(image_file_content)
+    predicted_label = await inference.get_fsm_prediction(image_file_content)
 
     print("########### PREDICTION SUCCESSFUL  ##################")
         
